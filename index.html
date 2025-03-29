@@ -10,11 +10,103 @@
 
     <!-- Chart.js for visualizing energy data -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: #007BFF;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+        }
+
+        main {
+            width: 90%;
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        /* Form Styling */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        input {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 16px;
+            background: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background: #007BFF;
+            color: white;
+        }
+
+        /* Suggestion Text */
+        #suggestion {
+            font-weight: bold;
+            color: #d9534f;
+            margin-top: 10px;
+        }
+
+        /* Chart Containers */
+        canvas {
+            display: block;
+            margin: 10px auto;
+            max-width: 100%;
+        }
+    </style>
 </head>
 <body>
 
     <header>
-        <h1>Energy Consumption Tracker</h1>
+        <h1>WattWise</h1>
     </header>
 
     <main>
@@ -87,13 +179,36 @@
         });
     </script>
 
-    <!-- Script for Energy Entry & Table Update -->
+    <!-- Script for Energy Entry, Table Update, & Carbon Trends Chart -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const form = document.getElementById('energyForm');
             const energyInput = document.getElementById('energyInput');
             const suggestion = document.getElementById('suggestion');
             const dataTable = document.getElementById('data-table');
+            const emissionChartCtx = document.getElementById('emissionChart').getContext('2d');
+
+            let emissionData = {
+                labels: [],
+                datasets: [{
+                    label: 'Carbon Emission (kg CO2)',
+                    data: [],
+                    backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            };
+
+            let emissionChart = new Chart(emissionChartCtx, {
+                type: 'line',
+                data: emissionData,
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
 
             // Function to provide conservation suggestions
             function getSuggestion(energy) {
@@ -124,13 +239,17 @@
                 // Show conservation suggestion
                 suggestion.textContent = getSuggestion(energyUsed);
 
+                // Update the Carbon Emission Trends Chart
+                emissionData.labels.push(date);
+                emissionData.datasets[0].data.push(carbonEmission);
+                emissionChart.update();
+
                 // Clear input
                 energyInput.value = '';
             });
         });
     </script>
 
-    <!-- Main JavaScript file for dynamic data handling -->
     <script src="script.js"></script>
 
 </body>
