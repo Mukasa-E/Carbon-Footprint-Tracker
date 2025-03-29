@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energy Consumption Tracker</title>
+    
+    <!-- External styles -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Chart.js for visualizing energy data -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <header>
+        <h1>Energy Consumption Tracker</h1>
+    </header>
+
+    <main>
+
+        <!-- Section: User Input for Energy Tracking -->
+        <section>
+            <h2>Track Your Energy Usage</h2>
+            <form id="energyForm">
+                <label for="energyInput">Enter Energy Used (kWh):</label>
+                <input type="number" id="energyInput" min="1" required>
+                <button type="submit">Track</button>
+            </form>
+            <p id="suggestion"></p>
+        </section>
+
+        <!-- Section: Energy Consumption Table -->
+        <section>
+            <h2>Consumption Data</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Energy Used (kWh)</th>
+                        <th>Carbon Emission (kg CO2)</th>
+                    </tr>
+                </thead>
+                <tbody id="data-table">
+                    <!-- Data will be dynamically inserted here -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Section: Carbon Emission Trends -->
+        <section>
+            <h2>Carbon Emission Trends</h2>
+            <canvas id="emissionChart"></canvas>
+        </section>
+
+        <!-- Section: Your Existing Chart (Unchanged) -->
+        <section>
+            <h2>Energy Consumption Overview</h2>
+            <canvas id="consumptionChart"></canvas>
+        </section>
+
+    </main>
+
+    <!-- Your Existing Graph Code (Unchanged) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const ctx = document.getElementById('consumptionChart').getContext('2d');
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+                    datasets: [{
+                        label: 'Energy Usage (kWh)',
+                        data: [120, 190, 300, 500, 200, 320],
+                        backgroundColor: ['red', 'blue', 'yellow', 'green', 'purple', 'orange'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+        });
+    </script>
+
+    <!-- Script for Energy Entry & Table Update -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('energyForm');
+            const energyInput = document.getElementById('energyInput');
+            const suggestion = document.getElementById('suggestion');
+            const dataTable = document.getElementById('data-table');
+
+            // Function to provide conservation suggestions
+            function getSuggestion(energy) {
+                if (energy < 50) return "Great job! Keep using energy-efficient appliances.";
+                if (energy < 150) return "Consider using LED bulbs or turning off unused devices.";
+                if (energy < 300) return "Try using energy-saving modes on your devices.";
+                return "High consumption detected! Consider reducing usage during peak hours.";
+            }
+
+            // Handle form submission
+            form.addEventListener('submit', (event) => {
+                event.preventDefault();
+                const energyUsed = parseInt(energyInput.value, 10);
+                if (isNaN(energyUsed) || energyUsed <= 0) return;
+
+                const carbonEmission = (energyUsed * 0.92).toFixed(2); // Example: 0.92 kg CO2 per kWh
+                const date = new Date().toLocaleDateString();
+
+                // Add entry to the table
+                dataTable.innerHTML += `
+                    <tr>
+                        <td>${date}</td>
+                        <td>${energyUsed} kWh</td>
+                        <td>${carbonEmission} kg CO2</td>
+                    </tr>
+                `;
+
+                // Show conservation suggestion
+                suggestion.textContent = getSuggestion(energyUsed);
+
+                // Clear input
+                energyInput.value = '';
+            });
+        });
+    </script>
+
+    <!-- Main JavaScript file for dynamic data handling -->
+    <script src="script.js"></script>
+
+</body>
+</html>
