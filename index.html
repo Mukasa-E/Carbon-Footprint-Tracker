@@ -4,15 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Energy Consumption Tracker</title>
-    
-    <!-- External styles -->
     <link rel="stylesheet" href="styles.css">
-
-    <!-- Chart.js for visualizing energy data -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
-        /* General Styling */
+    
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f9;
@@ -41,7 +37,6 @@
             color: #333;
         }
 
-        /* Form Styling */
         form {
             display: flex;
             flex-direction: column;
@@ -70,7 +65,6 @@
             background: #0056b3;
         }
 
-        /* Table Styling */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -88,14 +82,12 @@
             color: white;
         }
 
-        /* Suggestion Text */
         #suggestion {
             font-weight: bold;
             color: #d9534f;
             margin-top: 10px;
         }
 
-        /* Chart Containers */
         canvas {
             display: block;
             margin: 10px auto;
@@ -111,7 +103,6 @@
 
     <main>
 
-        <!-- Section: User Input for Energy Tracking -->
         <section>
             <h2>Track Your Energy Usage</h2>
             <form id="energyForm">
@@ -122,7 +113,6 @@
             <p id="suggestion"></p>
         </section>
 
-        <!-- Section: Energy Consumption Table -->
         <section>
             <h2>Consumption Data</h2>
             <table>
@@ -134,18 +124,15 @@
                     </tr>
                 </thead>
                 <tbody id="data-table">
-                    <!-- Data will be dynamically inserted here -->
                 </tbody>
             </table>
         </section>
 
-        <!-- Section: Carbon Emission Trends -->
         <section>
             <h2>Carbon Emission Trends</h2>
             <canvas id="emissionChart"></canvas>
         </section>
 
-        <!-- Section: Your Existing Chart (Unchanged) -->
         <section>
             <h2>Energy Consumption Overview</h2>
             <canvas id="consumptionChart"></canvas>
@@ -153,7 +140,6 @@
 
     </main>
 
-    <!-- Your Existing Graph Code (Unchanged) -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const ctx = document.getElementById('consumptionChart').getContext('2d');
@@ -179,7 +165,6 @@
         });
     </script>
 
-    <!-- Script for Energy Entry, Table Update, & Carbon Trends Chart -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const form = document.getElementById('energyForm');
@@ -210,7 +195,7 @@
                 }
             });
 
-            // Function to provide conservation suggestions
+
             function getSuggestion(energy) {
                 if (energy < 50) return "Great job! Keep using energy-efficient appliances.";
                 if (energy < 150) return "Consider using LED bulbs or turning off unused devices.";
@@ -218,16 +203,14 @@
                 return "High consumption detected! Consider reducing usage during peak hours.";
             }
 
-            // Handle form submission
             form.addEventListener('submit', (event) => {
                 event.preventDefault();
                 const energyUsed = parseInt(energyInput.value, 10);
                 if (isNaN(energyUsed) || energyUsed <= 0) return;
 
-                const carbonEmission = (energyUsed * 0.92).toFixed(2); // Example: 0.92 kg CO2 per kWh
+                const carbonEmission = (energyUsed * 0.92).toFixed(2); 
                 const date = new Date().toLocaleDateString();
 
-                // Add entry to the table
                 dataTable.innerHTML += `
                     <tr>
                         <td>${date}</td>
