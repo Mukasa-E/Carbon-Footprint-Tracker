@@ -89,7 +89,7 @@ npm start  # Or open index.html in a browser
 ---
 
 ## Live Demo
-**[WattWise Live](https://your-live-demo-link.com)**
+**[WattWise Live](https://www.youtube.com/watch?v=ZiuAIsr37ug)**
 
 ---
 
