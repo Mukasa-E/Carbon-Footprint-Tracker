@@ -32,11 +32,12 @@ Users can:
 ##  Deployment
 
 ### Server Deployment
-- Hosted on **GitHub Pages**
+
+- Hosted on **GitHub Pages** ( https://mukasa-e.github.io/Carbon-Footprint-Tracker/)
 
 
 ### Load Balancer Configuration
-- Uses **NGINX** for traffic distribution.
+- Utilizes NGINX to evenly distribute traffic across multiple backend servers (web-01, web-02) via a load balancer (lb-01)
 
 ## User Experience
 
@@ -53,14 +54,8 @@ Users can:
 
 ## Documentation
 
-### README Quality
-- Comprehensive setup instructions.
-- API usage details.
-- Deployment guidelines.
-
-
 ### API & Resource Attribution
-- Proper credits to **Chart.js** and Climatiq carbon-footprint tracker APIs.
+- Proper credits to **Chart.js** for the graphs and Climatiq carbon-footprint tracker APIs for carbon emmission calculations.
 
 ## Demo Video
 
