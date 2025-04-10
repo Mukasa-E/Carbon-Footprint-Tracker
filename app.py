@@ -19,7 +19,7 @@ def calculate_carbon():
     
     api_url = "https://www.carboninterface.com/api/v1/estimates"
     headers = {
-        "Authorization": "Bearer YOUR_API_KEY",
+        "Authorization": "Bearer AIzaSyCwEro-wQ6YUNcA1ozA9FQev-DyJp3t2EQ",
         "Content-Type": "application/json"
     }
     payload = {
